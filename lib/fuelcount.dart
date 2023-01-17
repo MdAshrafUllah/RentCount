@@ -9,6 +9,19 @@ class fuelcount extends StatefulWidget {
 }
 
 class _fuelcountState extends State<fuelcount> {
+  _fuelcountState() {
+    _selectedval = _vehicletypes[0];
+  }
+
+  final _vehicletypes = [
+    "Diesel Bus",
+    "CNG Bus",
+    "Diesel Tempo",
+    "CNG Tempo",
+    "Rickshaw"
+  ];
+  String? _selectedval = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +95,7 @@ class _fuelcountState extends State<fuelcount> {
                       searchInputDecoration: InputDecoration(
                         labelText: 'To',
                         hintText: 'To',
-                        prefixIcon: Icon(Icons.add_location),
+                        prefixIcon: Icon(Icons.add_location_alt),
                         enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.green, width: 1),
@@ -113,6 +126,41 @@ class _fuelcountState extends State<fuelcount> {
                       ],
                     )),
                     SizedBox(
+                      height: 25,
+                    ),
+                    DropdownButtonFormField(
+                      value: _selectedval,
+                      items: _vehicletypes.map((e) {
+                        return DropdownMenuItem(
+                          child: Text(e),
+                          value: e,
+                        );
+                      }).toList(),
+                      onChanged: (val) {
+                        setState(() {
+                          _selectedval = val as String;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.arrow_drop_down_circle,
+                        color: Colors.green,
+                      ),
+                      dropdownColor: Colors.green.shade50,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.airport_shuttle_rounded),
+                        labelText: "Select Vehicale Type",
+                        hintText: "Select Vehicale Type",
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.green, width: 1),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.green.withOpacity(0.8), width: 2),
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                    ),
+                    SizedBox(
                       height: 50,
                     ),
                     MaterialButton(
@@ -130,6 +178,7 @@ class _fuelcountState extends State<fuelcount> {
                       height: 50,
                       minWidth: 200,
                     ),
+                    SizedBox(height: 25),
                     Container(
                       padding: EdgeInsets.all(10),
                       child: IconButton(
