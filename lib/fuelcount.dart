@@ -145,7 +145,6 @@ class _fuelcountState extends State<fuelcount> {
                         Icons.arrow_drop_down_circle,
                         color: Colors.green,
                       ),
-                      dropdownColor: Colors.green.shade50,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.airport_shuttle_rounded),
                         labelText: "Select Vehicale Type",
