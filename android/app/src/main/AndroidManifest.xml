@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rentapp">
    <application
-        android:label="rentapp"
+        android:label="Rent Count"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

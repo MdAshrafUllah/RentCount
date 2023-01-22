@@ -1,5 +1,5 @@
 {
-    "name": "rentapp",
+    "name": "Rent Count",
     "short_name": "rentapp",
     "start_url": ".",
     "display": "standalone",
