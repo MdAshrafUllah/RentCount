@@ -208,95 +208,99 @@ class _fuelcountState extends State<fuelcount> {
                     SizedBox(
                       height: 50,
                     ),
-                    Row(
-                      children: [
-                        MaterialButton(
-                          onPressed: (() {
-                            setState(() {
-                              _searchfildcontroller.text = "";
-                              _searchfildcontroller2.text = "";
-                              _selectedval = _vehicletypes[0];
-                              _rentcount.text = "";
-                            });
-                          }),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "Reset",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          MaterialButton(
+                            onPressed: (() {
+                              setState(() {
+                                _searchfildcontroller.text = "";
+                                _searchfildcontroller2.text = "";
+                                _selectedval = _vehicletypes[0];
+                                _rentcount.text = "";
+                              });
+                            }),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Text(
+                              "Reset",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.white,
+                              ),
                             ),
+                            color: Colors.yellow.shade800,
+                            height: 50,
+                            minWidth: 142,
                           ),
-                          color: Colors.yellow.shade800,
-                          height: 50,
-                          minWidth: 142,
-                        ),
-                        SizedBox(width: 25),
-                        MaterialButton(
-                          onPressed: () {
-                            if (_searchfildcontroller.text ==
-                                _searchfildcontroller2.text) {
-                              showAlertDialog(context);
-                            } else {
-                              if (_searchfildcontroller.text == 'Muradpur' &&
-                                      _searchfildcontroller2.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[0] ||
-                                  _searchfildcontroller2.text == 'Muradpur' &&
-                                      _searchfildcontroller.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[0]) {
-                                _rentcount.text = _rent[4];
-                              } else if (_searchfildcontroller.text ==
-                                          'Muradpur' &&
-                                      _searchfildcontroller2.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[1] ||
-                                  _searchfildcontroller2.text == 'Muradpur' &&
-                                      _searchfildcontroller.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[1]) {
-                                _rentcount.text = _rent[0];
-                              } else if (_searchfildcontroller.text ==
-                                          'Muradpur' &&
-                                      _searchfildcontroller2.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[2] ||
-                                  _searchfildcontroller2.text == 'Muradpur' &&
-                                      _searchfildcontroller.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[2]) {
-                                _rentcount.text = _rent[5];
-                              } else if (_searchfildcontroller.text ==
-                                          'Muradpur' &&
-                                      _searchfildcontroller2.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[3] ||
-                                  _searchfildcontroller2.text == 'Muradpur' &&
-                                      _searchfildcontroller.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[3]) {
-                                _rentcount.text = _rent[0];
-                              } else if (_searchfildcontroller.text ==
-                                          'Muradpur' &&
-                                      _searchfildcontroller2.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[4] ||
-                                  _searchfildcontroller2.text == 'Muradpur' &&
-                                      _searchfildcontroller.text == 'GEC' &&
-                                      _selectedval == _vehicletypes[4]) {
-                                _rentcount.text = _rent[9];
+                          SizedBox(width: 25),
+                          MaterialButton(
+                            onPressed: () {
+                              if (_searchfildcontroller.text ==
+                                  _searchfildcontroller2.text) {
+                                showAlertDialog(context);
+                              } else {
+                                if (_searchfildcontroller.text == 'Muradpur' &&
+                                        _searchfildcontroller2.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[0] ||
+                                    _searchfildcontroller2.text == 'Muradpur' &&
+                                        _searchfildcontroller.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[0]) {
+                                  _rentcount.text = _rent[4];
+                                } else if (_searchfildcontroller.text ==
+                                            'Muradpur' &&
+                                        _searchfildcontroller2.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[1] ||
+                                    _searchfildcontroller2.text == 'Muradpur' &&
+                                        _searchfildcontroller.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[1]) {
+                                  _rentcount.text = _rent[0];
+                                } else if (_searchfildcontroller.text ==
+                                            'Muradpur' &&
+                                        _searchfildcontroller2.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[2] ||
+                                    _searchfildcontroller2.text == 'Muradpur' &&
+                                        _searchfildcontroller.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[2]) {
+                                  _rentcount.text = _rent[5];
+                                } else if (_searchfildcontroller.text ==
+                                            'Muradpur' &&
+                                        _searchfildcontroller2.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[3] ||
+                                    _searchfildcontroller2.text == 'Muradpur' &&
+                                        _searchfildcontroller.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[3]) {
+                                  _rentcount.text = _rent[0];
+                                } else if (_searchfildcontroller.text ==
+                                            'Muradpur' &&
+                                        _searchfildcontroller2.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[4] ||
+                                    _searchfildcontroller2.text == 'Muradpur' &&
+                                        _searchfildcontroller.text == 'GEC' &&
+                                        _selectedval == _vehicletypes[4]) {
+                                  _rentcount.text = _rent[9];
+                                }
                               }
-                            }
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5))),
-                          child: Text(
-                            "Count",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(5))),
+                            child: Text(
+                              "Count",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                color: Colors.white,
+                              ),
                             ),
+                            color: Colors.green,
+                            height: 50,
+                            minWidth: 142,
                           ),
-                          color: Colors.green,
-                          height: 50,
-                          minWidth: 142,
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(height: 25),
                     Container(
