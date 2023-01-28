@@ -33,7 +33,7 @@ class homepage extends StatelessWidget {
             height: 50,
             width: 200,
             child: ElevatedButton(
-              child: Text('Fuel Count'),
+              child: Text('Rent Count'),
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => fuelcount()));
