@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:searchfield/searchfield.dart';
+import 'dart:math';
 
 class fuelcount extends StatefulWidget {
   const fuelcount({super.key});
@@ -107,8 +108,32 @@ class _fuelcountState extends State<fuelcount> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    Container(
                       height: 25,
+                      width: 50,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                        ),
+                        child: Transform.rotate(
+                          angle: 90 * pi / 180,
+                          child: Center(
+                              child: IconButton(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 5,
+                            ),
+                            icon: Icon(Icons.compare_arrows),
+                            color: Colors.white,
+                            iconSize: 30,
+                            onPressed: () {
+                              String n = _searchfildcontroller.text;
+                              _searchfildcontroller.text =
+                                  _searchfildcontroller2.text;
+                              _searchfildcontroller2.text = n;
+                            },
+                          )),
+                        ),
+                      ),
                     ),
                     Container(
                         child: SearchField(
