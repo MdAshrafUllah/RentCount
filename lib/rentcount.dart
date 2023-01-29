@@ -65,7 +65,7 @@ class _fuelcountState extends State<fuelcount> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 50,
+                  horizontal: 25,
                 ),
                 child: Form(
                     child: Column(
