@@ -50,29 +50,29 @@ flutter_native_splash:
     # 640 pixels in diameter.
     # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
     # 768 pixels in diameter.
-    #image: assets/android12splash.png
+    image: assets/splash/rentcount12.png
 
     # Splash screen background color.
-    #color: "#42a5f5"
+    color: "FAFAFA"
 
     # App icon background color.
     #icon_background_color: "#111111"
 
     # The branding property allows you to specify an image used as branding in the splash screen.
-    #branding: assets/dart.png
+    # branding: assets/splash/rentcount.png
 
     # The image_dark, color_dark, icon_background_color_dark, and branding_dark set values that
     # apply when the device is in dark mode. If they are not specified, the app will use the
     # parameters from above.
-    #image_dark: assets/android12splash-invert.png
-    #color_dark: "#042a49"
-    #icon_background_color_dark: "#eeeeee"
+    # image_dark: assets/splash/rentcount12.png
+    # color_dark: "FAFAFA"
+    # icon_background_color_dark: "#ff0000"
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.
-  android: true
-  ios: true
-  web: true
+  # android: true
+  # ios: true
+  # web: true
 
   # Platform specific images can be specified with the following parameters, which will override
   # the respective parameter.  You may specify all, selected, or none of these parameters:
@@ -82,8 +82,8 @@ flutter_native_splash:
   #color_dark_ios: "#042a49"
   #color_web: "#42a5f5"
   #color_dark_web: "#042a49"
-  #image_android: assets/splash-android.png
-  #image_dark_android: assets/splash-invert-android.png
+  # image_android: assets/splash/rentcount.png
+  # image_dark_android: assets/splash/rentcount.png
   #image_ios: assets/splash-ios.png
   #image_dark_ios: assets/splash-invert-ios.png
   #image_web: assets/splash-web.png
