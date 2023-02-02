@@ -43,12 +43,12 @@ class fuelprice extends StatelessWidget {
             DataRow(cells: [
               DataCell(Text('1')),
               DataCell(Text('Diesel')),
-              DataCell(Text('114 TK')),
+              DataCell(Text('109 TK')),
             ]),
             DataRow(cells: [
               DataCell(Text('2')),
               DataCell(Text('Petrol')),
-              DataCell(Text('130 TK')),
+              DataCell(Text('120 TK')),
             ]),
             DataRow(cells: [
               DataCell(Text('3')),
@@ -58,7 +58,7 @@ class fuelprice extends StatelessWidget {
             DataRow(cells: [
               DataCell(Text('4')),
               DataCell(Text('LPG')),
-              DataCell(Text('78 TK')),
+              DataCell(Text('57 TK')),
             ]),
           ],
         ),

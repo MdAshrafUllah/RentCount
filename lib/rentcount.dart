@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:searchfield/searchfield.dart';
 import 'dart:math';
 
@@ -358,6 +357,8 @@ class _fuelcountState extends State<fuelcount> {
                                             'Boddorhat' &&
                                         _selectedval == _vehicletypes[4]) {
                                   _rentcount.text = _rent[7];
+                                } else {
+                                  _rentcount.text = "Not Include";
                                 }
                               }
                             },
