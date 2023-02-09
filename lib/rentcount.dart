@@ -274,32 +274,28 @@ class _fuelcountState extends State<fuelcount> {
                                         _searchfildcontroller.text == 'GEC' &&
                                         _selectedval == _vehicletypes[0]) {
                                   _rentcount.text = _rent[4];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
+                                } else if (_searchfildcontroller.text == 'Muradpur' &&
                                         _searchfildcontroller2.text == 'GEC' &&
                                         _selectedval == _vehicletypes[1] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
                                         _searchfildcontroller.text == 'GEC' &&
                                         _selectedval == _vehicletypes[1]) {
                                   _rentcount.text = _rent[0];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
+                                } else if (_searchfildcontroller.text == 'Muradpur' &&
                                         _searchfildcontroller2.text == 'GEC' &&
                                         _selectedval == _vehicletypes[2] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
                                         _searchfildcontroller.text == 'GEC' &&
                                         _selectedval == _vehicletypes[2]) {
                                   _rentcount.text = _rent[5];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
+                                } else if (_searchfildcontroller.text == 'Muradpur' &&
                                         _searchfildcontroller2.text == 'GEC' &&
                                         _selectedval == _vehicletypes[3] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
                                         _searchfildcontroller.text == 'GEC' &&
                                         _selectedval == _vehicletypes[3]) {
                                   _rentcount.text = _rent[0];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
+                                } else if (_searchfildcontroller.text == 'Muradpur' &&
                                         _searchfildcontroller2.text == 'GEC' &&
                                         _selectedval == _vehicletypes[4] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
@@ -307,55 +303,29 @@ class _fuelcountState extends State<fuelcount> {
                                         _selectedval == _vehicletypes[4]) {
                                   _rentcount.text = _rent[9];
                                   //Boddorhat -- muradpur
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
-                                        _searchfildcontroller2.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[0] ||
+                                } else if (_searchfildcontroller.text == 'Muradpur' && _searchfildcontroller2.text == 'Boddorhat' && _selectedval == _vehicletypes[0] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
                                         _searchfildcontroller.text ==
                                             'Boddorhat' &&
                                         _selectedval == _vehicletypes[0]) {
                                   _rentcount.text = _rent[4];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
-                                        _searchfildcontroller2.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[1] ||
+                                } else if (_searchfildcontroller.text == 'Muradpur' && _searchfildcontroller2.text == 'Boddorhat' && _selectedval == _vehicletypes[1] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
                                         _searchfildcontroller.text ==
                                             'Boddorhat' &&
                                         _selectedval == _vehicletypes[1]) {
                                   _rentcount.text = _rent[0];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
+                                } else if (_searchfildcontroller.text == 'Muradpur' &&
                                         _searchfildcontroller2.text ==
                                             'Boddorhat' &&
                                         _selectedval == _vehicletypes[2] ||
                                     _searchfildcontroller2.text == 'Muradpur' &&
-                                        _searchfildcontroller.text ==
-                                            'Boddorhat' &&
+                                        _searchfildcontroller.text == 'Boddorhat' &&
                                         _selectedval == _vehicletypes[2]) {
                                   _rentcount.text = _rent[4];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
-                                        _searchfildcontroller2.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[3] ||
-                                    _searchfildcontroller2.text == 'Muradpur' &&
-                                        _searchfildcontroller.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[3]) {
+                                } else if (_searchfildcontroller.text == 'Muradpur' && _searchfildcontroller2.text == 'Boddorhat' && _selectedval == _vehicletypes[3] || _searchfildcontroller2.text == 'Muradpur' && _searchfildcontroller.text == 'Boddorhat' && _selectedval == _vehicletypes[3]) {
                                   _rentcount.text = _rent[0];
-                                } else if (_searchfildcontroller.text ==
-                                            'Muradpur' &&
-                                        _searchfildcontroller2.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[4] ||
-                                    _searchfildcontroller2.text == 'Muradpur' &&
-                                        _searchfildcontroller.text ==
-                                            'Boddorhat' &&
-                                        _selectedval == _vehicletypes[4]) {
+                                } else if (_searchfildcontroller.text == 'Muradpur' && _searchfildcontroller2.text == 'Boddorhat' && _selectedval == _vehicletypes[4] || _searchfildcontroller2.text == 'Muradpur' && _searchfildcontroller.text == 'Boddorhat' && _selectedval == _vehicletypes[4]) {
                                   _rentcount.text = _rent[7];
                                 } else {
                                   _rentcount.text = "Not Include";
