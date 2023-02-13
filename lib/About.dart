@@ -9,6 +9,17 @@ class Aboutpage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          iconTheme: IconThemeData(color: Colors.green, size: 35.0),
+        ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -22,6 +33,7 @@ class Aboutpage extends StatelessWidget {
               Text(
                 "version: 1.0",
                 style: TextStyle(
+                  color: Theme.of(context).iconTheme.color,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -34,6 +46,7 @@ class Aboutpage extends StatelessWidget {
                 child: Text(
                   "it's a rent count app. you can use this application to see what's the rent between two places.This is an first version of this application.",
                   style: TextStyle(
+                    color: Theme.of(context).iconTheme.color,
                     fontSize: 15,
                   ),
                   textAlign: TextAlign.center,
@@ -45,6 +58,7 @@ class Aboutpage extends StatelessWidget {
               Text(
                 "Devloped By",
                 style: TextStyle(
+                  color: Theme.of(context).iconTheme.color,
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
@@ -56,24 +70,13 @@ class Aboutpage extends StatelessWidget {
                 child: Text(
                   "Md Ashraf Ullah",
                   style: TextStyle(
+                    color: Theme.of(context).iconTheme.color,
                     fontSize: 12,
                   ),
                 ),
                 onTap: () =>
                     // ignore: deprecated_member_use
                     launch('https://www.facebook.com/MdAshrafUllahShafayet'),
-              ),
-              SizedBox(height: 50),
-              Container(
-                padding: EdgeInsets.all(10),
-                child: IconButton(
-                  icon: Icon(Icons.arrow_circle_left),
-                  iconSize: 50,
-                  color: Colors.red[900],
-                  onPressed: () {
-                    Navigator.pop(context); // handle button press
-                  },
-                ),
               ),
             ],
           ),

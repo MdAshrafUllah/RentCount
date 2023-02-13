@@ -44,6 +44,11 @@ class _fuelcountState extends State<fuelcount> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.green, size: 35.0),
+      ),
       body: Scaffold(
         body: SingleChildScrollView(
           child: Column(
@@ -74,24 +79,34 @@ class _fuelcountState extends State<fuelcount> {
                         controller: _searchfildcontroller,
                         hint: 'search',
                         searchInputDecoration: InputDecoration(
-                            labelText: 'From',
-                            hintText: 'From',
-                            prefixIcon: Icon(Icons.add_location),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.green, width: 1),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.green.withOpacity(0.8),
-                                    width: 2),
-                                borderRadius: BorderRadius.circular(10)),
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.search)),
+                          labelStyle: TextStyle(color: Colors.green),
+                          hintStyle: TextStyle(
+                              color: Theme.of(context).iconTheme.color),
+                          labelText: 'From',
+                          hintText: 'From',
+                          prefixIcon: Icon(
+                            Icons.add_location,
+                            color: Colors.green,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.green, width: 1),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.green.withOpacity(0.8),
+                                  width: 2),
+                              borderRadius: BorderRadius.circular(10)),
+                          border: OutlineInputBorder(),
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colors.green,
+                          ),
+                        ),
                         itemHeight: 50,
                         maxSuggestionsInViewPort: 6,
                         suggestionsDecoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).primaryColor,
                             borderRadius: BorderRadius.circular(10)),
                         suggestions: [
                           'Muradpur',
@@ -139,9 +154,15 @@ class _fuelcountState extends State<fuelcount> {
                       controller: _searchfildcontroller2,
                       hint: 'search',
                       searchInputDecoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.green),
+                        hintStyle:
+                            TextStyle(color: Theme.of(context).iconTheme.color),
                         labelText: 'To',
                         hintText: 'To',
-                        prefixIcon: Icon(Icons.add_location_alt),
+                        prefixIcon: Icon(
+                          Icons.add_location_alt,
+                          color: Colors.green,
+                        ),
                         enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.green, width: 1),
@@ -151,12 +172,15 @@ class _fuelcountState extends State<fuelcount> {
                                 color: Colors.green.withOpacity(0.8), width: 2),
                             borderRadius: BorderRadius.circular(10)),
                         border: OutlineInputBorder(),
-                        suffixIcon: Icon(Icons.search),
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: Colors.green,
+                        ),
                       ),
                       itemHeight: 50,
                       maxSuggestionsInViewPort: 6,
                       suggestionsDecoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(10)),
                       suggestions: [
                         'Muradpur',
@@ -192,9 +216,13 @@ class _fuelcountState extends State<fuelcount> {
                         color: Colors.green,
                       ),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.airport_shuttle_rounded),
+                        labelStyle: TextStyle(color: Colors.green),
+                        // hintStyle: TextStyle(color: Colors.green),
+                        prefixIcon: Icon(
+                          Icons.airport_shuttle_rounded,
+                          color: Colors.green,
+                        ),
                         labelText: "Select Vehicle Type",
-                        hintText: "Select Vehicle Type",
                         enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.green, width: 1),
@@ -211,9 +239,13 @@ class _fuelcountState extends State<fuelcount> {
                       enabled: false,
                       controller: _rentcount,
                       decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.green),
                         labelText: 'Rent is',
                         hintText: 'Rent is',
-                        prefixIcon: Icon(Icons.account_balance_wallet),
+                        prefixIcon: Icon(
+                          Icons.account_balance_wallet,
+                          color: Colors.green,
+                        ),
                         enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: Colors.green, width: 1),
@@ -349,18 +381,6 @@ class _fuelcountState extends State<fuelcount> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 25),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: IconButton(
-                        icon: Icon(Icons.arrow_circle_left),
-                        iconSize: 50,
-                        color: Colors.red[900],
-                        onPressed: () {
-                          Navigator.pop(context); // handle button press
-                        },
-                      ),
-                    ),
                   ],
                 )),
               ),
@@ -375,7 +395,8 @@ class _fuelcountState extends State<fuelcount> {
 showAlertDialog(BuildContext context) {
   // Create button
   Widget okButton = TextButton(
-    child: Text("OK"),
+    child:
+        Text("OK", style: TextStyle(color: Theme.of(context).iconTheme.color)),
     onPressed: () {
       Navigator.of(context).pop();
     },
@@ -383,8 +404,10 @@ showAlertDialog(BuildContext context) {
 
   // Create AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("⚠ Warning"),
-    content: Text("Please, Select Two Different locations."),
+    title: Text("⚠ Warning",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    content: Text("Please, Select Two Different locations.",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
     actions: [
       okButton,
     ],
