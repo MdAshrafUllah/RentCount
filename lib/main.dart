@@ -1,82 +1,253 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'rentcount.dart';
-import './fuelprice.dart';
-import './About.dart';
+import 'package:provider/provider.dart';
+import 'package:rentapp/home.dart';
 
-void main() => runApp(RentCount());
+import 'signup.dart';
+import 'theme.dart';
 
-class RentCount extends StatelessWidget {
+void main() => runApp(loginPage());
+
+class loginPage extends StatefulWidget {
+  const loginPage({Key? key}) : super(key: key);
+
   @override
+  _loginPageState createState() => _loginPageState();
+}
+
+class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData().copyWith(
-        colorScheme: ThemeData().colorScheme.copyWith(
-              primary: Colors.green,
-            ),
-      ),
-      title: 'Rent Count',
-      home: homepage(),
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: themeProvider.themeMode,
+          theme: MyThemes.lightTheme,
+          darkTheme: MyThemes.darkTheme,
+          title: 'Rent Count',
+          home: login(),
+        );
+      },
     );
   }
 }
 
-class homepage extends StatelessWidget {
-  const homepage({super.key});
+class login extends StatefulWidget {
+  const login({super.key});
+
+  @override
+  State<login> createState() => _loginState();
+}
+
+class _loginState extends State<login> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  bool _passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('Rent Count'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => fuelcount()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: Image.asset(
+                "assets/splash/rentcount.png",
+                height: 100,
+                width: 100,
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('Fuel Price'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => fuelprice()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
+            Container(
+              margin: EdgeInsets.only(top: 60),
+              child: Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  // color: Colors.black54,
+                ),
+              ),
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.only(left: 20),
             ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('About'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Aboutpage()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: EdgeInsets.only(left: 20, right: 20),
+              height: 70,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey[200],
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                controller: _emailController,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                keyboardType: TextInputType.emailAddress,
+                cursorColor: Colors.green,
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  hintStyle: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+                // onChanged: (value){
+                //   setState(() {
+                //     email = value;
+                //   });
+                // },
+              ),
             ),
-          ),
-        ]),
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: EdgeInsets.only(left: 20, right: 20),
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.grey[200],
+              ),
+              alignment: Alignment.center,
+              child: TextField(
+                controller: _passwordController,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.green,
+                obscureText: _passwordVisible,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  hintStyle: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _passwordVisible
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.black54,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
+                ),
+                // onChanged: (value){
+                //   setState(() {
+                //     password = value;
+                //   });
+                // }
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 20, top: 30),
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Forget your password?',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+            Container(
+              child: InkWell(
+                child: Container(
+                  height: 100,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: SingleChildScrollView(
+                    child: new Column(
+                      children: [
+                        Container(
+                          height: 20,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 26),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (Context) => homepage()));
+                },
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: RichText(
+                text: TextSpan(children: <TextSpan>[
+                  TextSpan(
+                    text: "Don't have an account?",
+                    style: TextStyle(
+                      color: Theme.of(context).iconTheme.color,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " Sign Up",
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (Context) => signupPage()));
+                      },
+                  ),
+                ]),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
