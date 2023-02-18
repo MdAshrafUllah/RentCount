@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import './rentcount.dart';
-import './fuelprice.dart';
-import './About.dart';
-import 'dart:math';
 
+import 'dart:math';
+import 'rentcount.dart';
+import 'fuelprice.dart';
+import 'About.dart';
 import 'theme.dart';
 
 class RentCount extends StatefulWidget {
-  const RentCount({super.key});
-
+  const RentCount({Key? key}) : super(key: key);
   @override
   State<RentCount> createState() => _RentCountState();
 }
@@ -29,24 +29,35 @@ class _RentCountState extends State<RentCount> {
 }
 
 class homepage extends StatefulWidget {
-  const homepage({super.key});
-
   @override
   State<homepage> createState() => _homepageState();
 }
 
 class _homepageState extends State<homepage> {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    if (auth.currentUser != null) {
+      user = auth.currentUser;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: Transform.rotate(
           angle: 180 * pi / 180,
           child: IconButton(
               icon: Icon(Icons.logout),
-              onPressed: () {
-                // handle the back button press
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, '/');
               }),
         ),
         elevation: 0.0,
@@ -58,26 +69,34 @@ class _homepageState extends State<homepage> {
           // Important: Remove any padding from the ListView.
           padding: EdgeInsets.zero,
           children: [
-            const UserAccountsDrawerHeader(
+            UserAccountsDrawerHeader(
               // <-- SEE HERE
               decoration: BoxDecoration(color: Colors.green),
               accountName: Text(
-                "Md Ashraf Ullah",
+                '${user?.displayName}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               accountEmail: Text(
-                "mdashrafullah47@gmail.com",
+                '${user?.email}',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
               currentAccountPicture: CircleAvatar(
                 radius: 60.0,
-                backgroundColor: const Color(0xFF778899),
-                backgroundImage: NetworkImage(
-                    "https://scontent.fcgp3-2.fna.fbcdn.net/v/t39.30808-6/247865594_3052683804989958_1876369014597449444_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_eui2=AeFjrk9MdcK6yIQZ2Ius267VG4684k4vS5IbjrziTi9LkjvBFEWTvbQ0E1f6pnwas00h8rpMLHvkDYK_wFerjqzT&_nc_ohc=X_xj-J_w-0kAX8HeWj0&_nc_ht=scontent.fcgp3-2.fna&oh=00_AfBTQ2EutX7iW9beyjwGvn1Z3tz3J0OAamybEzWdjKRCdA&oe=63ED062D"), // for Network image
+                backgroundColor: Color(0xFF778899),
+                // backgroundImage: AssetImage("assets/Gallery/profile.jpg"),
+                child: IconButton(
+                  onPressed: () {
+                    showimagepicker(context);
+                  },
+                  icon: Icon(
+                    Icons.camera_alt,
+                    color: Colors.green,
+                  ),
+                ),
               ),
             ),
             ListTile(
@@ -127,7 +146,10 @@ class _homepageState extends State<homepage> {
                 Icons.logout,
               ),
               title: const Text('Logout'),
-              onTap: () {},
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushNamed(context, '/');
+              },
             ),
           ],
         ),
@@ -185,6 +207,36 @@ class _homepageState extends State<homepage> {
       ),
     );
   }
+}
 
-  loginPage() {}
+showimagepicker(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Container(
+            height: 120,
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () {},
+                  leading: Icon(
+                    Icons.camera,
+                    color: Colors.green,
+                  ),
+                  title: Text('Camera'),
+                ),
+                ListTile(
+                  onTap: () {},
+                  leading: Icon(
+                    Icons.image,
+                    color: Colors.green,
+                  ),
+                  title: Text('Gallery'),
+                )
+              ],
+            ),
+          ),
+        );
+      });
 }
