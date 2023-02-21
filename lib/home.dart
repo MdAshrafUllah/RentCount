@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:math';
 import 'rentcount.dart';
 import 'fuelprice.dart';
@@ -26,6 +28,36 @@ class _RentCountState extends State<RentCount> {
       home: homepage(),
     );
   }
+}
+
+class ProfileController with ChangeNotifier {
+  DatabaseReference ref = FirebaseDatabase.instance.ref().child('users');
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+  final picker = ImagePicker();
+  XFile? _image;
+  XFile? get image => _image;
+
+  Future pickGalleryImage(BuildContext context) async {
+    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (PickedFile != null) {
+      _image = XFile(PickedFile.path);
+      notifyListeners();
+    }
+  }
+
+  Future pickCameraImage(BuildContext context) async {
+    final PickedFile = await picker.pickImage(source: ImageSource.camera);
+    if (PickedFile != null) {
+      _image = XFile(PickedFile.path);
+      notifyListeners();
+    }
+  }
+
+  // void uploadImage(BuildContext context) {
+  //   firebase_storage.Reference ref =
+  //       firebase_storage.FirebaseStorage.instance.ref('/profileImage'+ SessionController().userId.toString());
+  // }
 }
 
 class homepage extends StatefulWidget {
@@ -87,7 +119,7 @@ class _homepageState extends State<homepage> {
               currentAccountPicture: CircleAvatar(
                 radius: 60.0,
                 backgroundColor: Color(0xFF778899),
-                // backgroundImage: AssetImage("assets/Gallery/profile.jpg"),
+                // backgroundImage: ,
                 child: IconButton(
                   onPressed: () {
                     showimagepicker(context);
@@ -219,7 +251,10 @@ showimagepicker(BuildContext context) {
             child: Column(
               children: [
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    ProfileController().pickCameraImage(context);
+                    Navigator.pop(context);
+                  },
                   leading: Icon(
                     Icons.camera,
                     color: Colors.green,
@@ -227,7 +262,10 @@ showimagepicker(BuildContext context) {
                   title: Text('Camera'),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    ProfileController().pickGalleryImage(context);
+                    Navigator.pop(context);
+                  },
                   leading: Icon(
                     Icons.image,
                     color: Colors.green,

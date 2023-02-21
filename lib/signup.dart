@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -22,6 +24,13 @@ class _signupPageState extends State<signupPage> {
 
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
+
+  Future userdata(String name, String email) async {
+    await FirebaseFirestore.instance.collection("users").add({
+      'name': name,
+      'email': email,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -259,11 +268,14 @@ class _signupPageState extends State<signupPage> {
                         showSpinner = true;
                       });
                       try {
-                        UserCredential userCredential =
-                            await auth.createUserWithEmailAndPassword(
+                        UserCredential userCredential = await FirebaseAuth
+                            .instance
+                            .createUserWithEmailAndPassword(
                           email: _emailController.text,
                           password: _passwordController.text,
                         );
+                        userdata(_nameController.text.trim(),
+                            _emailController.text.trim());
                         user = userCredential.user;
                         await user!.updateDisplayName(_nameController.text);
                         await user!.reload();
