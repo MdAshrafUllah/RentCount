@@ -347,13 +347,3 @@ class _homepageState extends State<homepage> {
     );
   }
 }
-
-// picselect() {
-//   if (imageurl == " " && CurrentPic == " ") {
-//     AssetImage('assets/profile/profile.png');
-//   } else if (CurrentPic != " ") {
-//     NetworkImage(CurrentPic);
-//   } else if (imageurl != " ") {
-//     NetworkImage(imageurl);
-//   }
-// }
