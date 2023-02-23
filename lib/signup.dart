@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -21,14 +20,16 @@ class _signupPageState extends State<signupPage> {
   bool showSpinner = false;
   bool _passwordVisible = true;
   bool isChecked = true;
+  String profileImage = " ";
 
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user;
 
-  Future userdata(String name, String email) async {
+  Future userdata(String name, String email, String profileImage) async {
     await FirebaseFirestore.instance.collection("users").add({
       'name': name,
       'email': email,
+      'profileImage': ' ',
     });
   }
 
@@ -275,7 +276,7 @@ class _signupPageState extends State<signupPage> {
                           password: _passwordController.text,
                         );
                         userdata(_nameController.text.trim(),
-                            _emailController.text.trim());
+                            _emailController.text.trim(), profileImage);
                         user = userCredential.user;
                         await user!.updateDisplayName(_nameController.text);
                         await user!.reload();

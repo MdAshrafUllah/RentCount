@@ -1,9 +1,10 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'dart:math';
 import 'rentcount.dart';
 import 'fuelprice.dart';
@@ -19,6 +20,9 @@ class RentCount extends StatefulWidget {
 IconData _iconLight = Icons.light_mode;
 IconData _iconDark = Icons.dark_mode;
 
+String imageurl = ' ';
+String CurrentPic = ' ';
+
 class _RentCountState extends State<RentCount> {
   @override
   Widget build(BuildContext context) {
@@ -28,36 +32,6 @@ class _RentCountState extends State<RentCount> {
       home: homepage(),
     );
   }
-}
-
-class ProfileController with ChangeNotifier {
-  DatabaseReference ref = FirebaseDatabase.instance.ref().child('users');
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
-  final picker = ImagePicker();
-  XFile? _image;
-  XFile? get image => _image;
-
-  Future pickGalleryImage(BuildContext context) async {
-    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (PickedFile != null) {
-      _image = XFile(PickedFile.path);
-      notifyListeners();
-    }
-  }
-
-  Future pickCameraImage(BuildContext context) async {
-    final PickedFile = await picker.pickImage(source: ImageSource.camera);
-    if (PickedFile != null) {
-      _image = XFile(PickedFile.path);
-      notifyListeners();
-    }
-  }
-
-  // void uploadImage(BuildContext context) {
-  //   firebase_storage.Reference ref =
-  //       firebase_storage.FirebaseStorage.instance.ref('/profileImage'+ SessionController().userId.toString());
-  // }
 }
 
 class homepage extends StatefulWidget {
@@ -75,6 +49,65 @@ class _homepageState extends State<homepage> {
     if (auth.currentUser != null) {
       user = auth.currentUser;
     }
+  }
+
+  void uploadCameraImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString() +
+        '_' +
+        Random().nextInt(10000).toString() +
+        '.jpg';
+    Reference ref = FirebaseStorage.instance.ref().child(fileName);
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((pImage) {
+      print(pImage);
+      setState(() {
+        imageurl = pImage;
+      });
+    });
+    String downloadUrl = await ref.getDownloadURL();
+    FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc["email"] == user?.email) {
+          FirebaseFirestore.instance
+              .collection("users")
+              .doc(doc.id)
+              .update({'profileImage': downloadUrl.toString()});
+        }
+      });
+    });
+  }
+
+  void uploadGalleryImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    String fileName = DateTime.now().millisecondsSinceEpoch.toString() +
+        '_' +
+        Random().nextInt(10000).toString() +
+        '.jpg';
+    Reference ref = FirebaseStorage.instance.ref().child(fileName);
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((pImage) {
+      setState(() {
+        imageurl = pImage;
+      });
+    });
+    String downloadUrl = await ref.getDownloadURL();
+    FirebaseFirestore.instance
+        .collection('users')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        if (doc["email"] == user?.email) {
+          FirebaseFirestore.instance
+              .collection("users")
+              .doc(doc.id)
+              .update({'profileImage': downloadUrl.toString()});
+        }
+      });
+    });
   }
 
   @override
@@ -95,6 +128,30 @@ class _homepageState extends State<homepage> {
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.green, size: 35.0),
+        actions: <Widget>[
+          Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.menu),
+                onPressed: () {
+                  FirebaseFirestore.instance
+                      .collection('users')
+                      .get()
+                      .then((QuerySnapshot querySnapshot) {
+                    querySnapshot.docs.forEach((doc) {
+                      if (doc["email"] == user?.email) {
+                        setState(() {
+                          CurrentPic = doc["profileImage"];
+                        });
+                      }
+                    });
+                  });
+                  Scaffold.of(context).openEndDrawer();
+                },
+              );
+            },
+          ),
+        ],
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -117,16 +174,66 @@ class _homepageState extends State<homepage> {
                 ),
               ),
               currentAccountPicture: CircleAvatar(
-                radius: 60.0,
-                backgroundColor: Color(0xFF778899),
-                // backgroundImage: ,
-                child: IconButton(
-                  onPressed: () {
-                    showimagepicker(context);
-                  },
-                  icon: Icon(
-                    Icons.camera_alt,
-                    color: Colors.green,
+                radius: 80.0,
+                backgroundColor: Colors.white,
+                child: CircleAvatar(
+                  radius: 33.0,
+                  backgroundImage: imageurl != " "
+                      ? NetworkImage(imageurl)
+                      : NetworkImage(CurrentPic),
+                  child: Transform.translate(
+                    offset: Offset(0, 30),
+                    child: IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Container(
+                                  height: 120,
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        onTap: () {
+                                          uploadCameraImage();
+                                          Navigator.pop(context);
+                                        },
+                                        leading: Icon(
+                                          Icons.camera,
+                                          color: Colors.green,
+                                        ),
+                                        title: Text('Camera'),
+                                      ),
+                                      ListTile(
+                                        onTap: () {
+                                          uploadGalleryImage();
+                                          Navigator.pop(context);
+                                        },
+                                        leading: Icon(
+                                          Icons.image,
+                                          color: Colors.green,
+                                        ),
+                                        title: Text('Gallery'),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                      icon: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white, // set the background color here
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -241,40 +348,12 @@ class _homepageState extends State<homepage> {
   }
 }
 
-showimagepicker(BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Container(
-            height: 120,
-            child: Column(
-              children: [
-                ListTile(
-                  onTap: () {
-                    ProfileController().pickCameraImage(context);
-                    Navigator.pop(context);
-                  },
-                  leading: Icon(
-                    Icons.camera,
-                    color: Colors.green,
-                  ),
-                  title: Text('Camera'),
-                ),
-                ListTile(
-                  onTap: () {
-                    ProfileController().pickGalleryImage(context);
-                    Navigator.pop(context);
-                  },
-                  leading: Icon(
-                    Icons.image,
-                    color: Colors.green,
-                  ),
-                  title: Text('Gallery'),
-                )
-              ],
-            ),
-          ),
-        );
-      });
-}
+// picselect() {
+//   if (imageurl == " " && CurrentPic == " ") {
+//     AssetImage('assets/profile/profile.png');
+//   } else if (CurrentPic != " ") {
+//     NetworkImage(CurrentPic);
+//   } else if (imageurl != " ") {
+//     NetworkImage(imageurl);
+//   }
+// }
