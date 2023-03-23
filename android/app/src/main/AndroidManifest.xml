@@ -11,9 +11,7 @@
    <application
         android:label="Rent Count"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAcM3lBLIid3LmrtBQVDBzLjbW0ZR5E-qg"/>  
+        android:icon="@mipmap/launcher_icon"> 
         <activity
             android:name=".MainActivity"
             android:exported="true"
