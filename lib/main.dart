@@ -236,9 +236,9 @@ class _loginState extends State<login> {
                       });
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
+                        nouserAlertDialog(context);
                       } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided.');
+                        wrongpassAlertDialog(context);
                       }
                     } catch (e) {
                       print(e);
@@ -282,4 +282,76 @@ class _loginState extends State<login> {
       ),
     );
   }
+}
+
+nouserAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = TextButton(
+    child:
+        Text("OK", style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    onPressed: () {
+      Navigator.of(context).pop();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => loginPage(),
+        ),
+      );
+    },
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("⚠ Warning",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    content: Text("No User Found",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+wrongpassAlertDialog(BuildContext context) {
+  // Create button
+  Widget okButton = TextButton(
+    child:
+        Text("OK", style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    onPressed: () {
+      Navigator.of(context).pop();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => loginPage(),
+        ),
+      );
+    },
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("⚠ Warning",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    content: Text("Wrong password provided.",
+        style: TextStyle(color: Theme.of(context).iconTheme.color)),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

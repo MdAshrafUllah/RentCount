@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rentapp/tickets.dart';
 import 'dart:math';
 import 'rentcount.dart';
 import 'fuelprice.dart';
@@ -120,19 +121,21 @@ class _homepageState extends State<homepage> {
           angle: 180 * pi / 180,
           child: IconButton(
               icon: Icon(Icons.logout),
+              color: Colors.white,
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Navigator.pushNamed(context, '/');
               }),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[200],
         iconTheme: IconThemeData(color: Colors.green, size: 35.0),
         actions: <Widget>[
           Builder(
             builder: (BuildContext context) {
               return IconButton(
                 icon: Icon(Icons.menu),
+                color: Colors.white,
                 onPressed: () {
                   FirebaseFirestore.instance
                       .collection('users')
@@ -254,11 +257,12 @@ class _homepageState extends State<homepage> {
             ),
             ListTile(
               leading: Icon(
-                Icons.language,
+                Icons.confirmation_num,
               ),
-              title: const Text('Language'),
+              title: const Text('Buy Tickets'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ticketsbook()));
               },
             ),
             ListTile(
@@ -293,56 +297,80 @@ class _homepageState extends State<homepage> {
           ],
         ),
       ),
-      body: Center(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('Rent Count'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => fuelcount()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/others/home_bg.jpg"),
+            fit: BoxFit.cover,
           ),
-          SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('Fuel Price'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => fuelprice()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
+        ),
+        child: Center(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            Container(
+              height: 50,
+              width: 200,
+              child: ElevatedButton(
+                child: Text('Rent Count'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => fuelcount()));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    textStyle: TextStyle(fontSize: 24)),
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 50,
-            width: 200,
-            child: ElevatedButton(
-              child: Text('About'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Aboutpage()));
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  foregroundColor: Colors.white,
-                  textStyle: TextStyle(fontSize: 24)),
+            SizedBox(height: 20),
+            Container(
+              height: 50,
+              width: 200,
+              child: ElevatedButton(
+                child: Text('Buy Tickets'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ticketsbook()));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    textStyle: TextStyle(fontSize: 24)),
+              ),
             ),
-          ),
-        ]),
+            SizedBox(height: 20),
+            Container(
+              height: 50,
+              width: 200,
+              child: ElevatedButton(
+                child: Text('Fuel Price'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => fuelprice()));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    textStyle: TextStyle(fontSize: 24)),
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              height: 50,
+              width: 200,
+              child: ElevatedButton(
+                child: Text('About'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Aboutpage()));
+                },
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    foregroundColor: Colors.white,
+                    textStyle: TextStyle(fontSize: 24)),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
